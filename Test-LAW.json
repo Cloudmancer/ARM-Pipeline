@@ -1,0 +1,36 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workspace_name": {
+            "type": "string"
+        },
+        "location":{
+            "type": "string"
+        }
+    },
+    "variables": {
+        "LAW SV": 1,
+        "legacy": 0,
+        "resource_perm": true
+    },
+    "resources": [
+        {
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "name": "[parameters('workspace_name')]",
+            "apiVersion": "2020-08-01",
+            "location": "[parameters('location')]",
+            "properties": {
+                "sku": {
+                    "name": "PerGB2018"
+                },
+                "retentionInDays": 90,
+                "features": {
+                    "searchVersion": "[variables('LAW SV')]",
+                    "legacy": "[variables('legacy')]",
+                    "enableLogAccessUsingOnlyResourcePermissions": "[variables('resource_perm')]"
+                }
+            }
+        }
+    ]
+}
